@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bakpia Sorsawo — Asli Yogyakarta</title>
+    <meta
+      name="description"
+      content="Bakpia Sorsawo — bakpia basah asli Yogyakarta dengan kulit tipis berlapis dan isian melimpah. Dipanggang fresh setiap hari."
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- ================= NAVBAR ================= -->
+    <header class="navbar" id="navbar">
+      <div class="container nav-inner">
+        <a href="#" class="nav-logo" aria-label="Bakpia Sorsawo Home">
+          <img src="Assets/logo bakpia.png" alt="Bakpia Sorsawo Logo" />
+          <span class="nav-logo-text">Bakpia <em>Sorsawo</em></span>
+        </a>
+
+        <div class="nav-overlay" id="navOverlay"></div>
+
+        <div class="nav-links" id="navLinks">
+          <ul class="nav-menu">
+            <li><a href="#hero" class="active">Home</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#pemesanan">Pemesanan</a></li>
+            <li><a href="#testimoni">Testimoni</a></li>
+          </ul>
+          <div class="nav-cta">
+            <a href="#pemesanan" class="btn btn-primary">Pesan Sekarang</a>
+          </div>
+        </div>
+
+        <button class="hamburger" id="hamburger" aria-label="Buka menu navigasi">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <!-- Text -->
+          <div class="hero-content reveal-left">
+            <div class="hero-badge">Fresh dari Oven Setiap Hari</div>
+
+            <h1 class="hero-title">
+              <span id="hero-title-1">Satu Gigitan,</span><br />
+              <span class="accent" id="hero-title-accent">Sejuta</span><br />
+              <span id="hero-title-2">Kenangan.</span>
+            </h1>
+
+            <p class="hero-desc" id="hero-desc">
+              Rasakan lembutnya kulit bakpia berpadu dengan isian premium yang
+              lumer di mulut. Dipanggang fresh setiap hari, Bakpia Sorsawo
+              adalah cita rasa autentik Yogyakarta yang menemanimu bernostalgia.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#menu" class="btn btn-primary">Jelajahi Varian Rasa →</a>
+              <a href="#tentang" class="btn btn-secondary">Tentang Kami</a>
+            </div>
+
+            <div class="hero-stats">
+              <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Varian Rasa</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Pelanggan</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">4.9</div>
+                <div class="stat-label">Rating</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Image -->
+          <div class="hero-visual reveal-right">
+            <div class="hero-img-wrapper">
+              <img
+                src="Assets/herosection.png"
+                alt="Bakpia Sorsawo — bakpia basah asli Yogyakarta"
+                id="hero-img"
+              />
+
+              <!-- Floating Cards -->
+              <div class="hero-float-card top-card">
+                <span class="float-icon">🏆</span>
+                <div>
+                  <div class="float-text-small">Best Seller</div>
+                  <div class="float-text-big">Bakpia Keju</div>
+                </div>
+              </div>
+
+              <div class="hero-float-card bottom-card">
+                <div class="float-text-small">⭐ 4.9/5 — 1200+ Ulasan</div>
+                <div class="float-text-big">Terpercaya Sejak Lama</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section class="about" id="tentang">
+      <div class="container">
+        <div class="about-grid">
+          <!-- Images -->
+          <div class="about-images reveal-left">
+            <div class="img-card">
+              <img
+                src="Assets/about1pict.png"
+                alt="Proses pembuatan bakpia Sorsawo"
+                id="about-img-1"
+              />
+            </div>
+            <div class="img-card">
+              <img
+                src="Assets/about2pict.png"
+                alt="Bakpia Sorsawo siap dikemas"
+                id="about-img-2"
+              />
+            </div>
+            <div class="about-badge">🍞 Resep Warisan Asli</div>
+          </div>
+
+          <!-- Text -->
+          <div class="about-text reveal-right">
+            <span class="section-label">Tentang Kami</span>
+            <h2 class="section-title">
+              Cita Rasa <span>Autentik</span> dari Jantung Yogyakarta
+            </h2>
+
+            <p id="about-desc-1">
+              Kamu masih ingat betul. Pagi itu di Jogja, udara sejuk, secangkir
+              teh hangat di tangan, dan sepotak bakpia yang baru keluar dari
+              oven.
+            </p>
+
+            <p id="about-desc-2">
+              Kulitnya tipis, isiannya lumer, dan rasanya berbeda dari bakpia
+              manapun yang pernah kamu coba. Dapur kami di Pathuk — jantung
+              sentra bakpia Yogyakarta — tidak pernah mengubah satu pun resep
+              warisan kami.
+            </p>
+
+            <div class="about-features">
+              <div class="feature-item">
+                <span class="feature-icon">🔥</span>
+                <span class="feature-label">Fresh Setiap Hari</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">🌿</span>
+                <span class="feature-label">Bahan Alami</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">📦</span>
+                <span class="feature-label">Kemasan Vakum</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">🚚</span>
+                <span class="feature-label">Kirim Seluruh Indonesia</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MENU ================= -->
+    <section class="menu" id="menu">
+      <div class="container">
+        <div class="menu-header reveal">
+          <span class="section-label">Produk Kami</span>
+          <h2 class="section-title">
+            Pilihan <span>Varian Rasa</span> Terbaik
+          </h2>
+          <p class="menu-desc">
+            Setiap bakpia diracik dengan bahan pilihan dan resep warisan yang
+            telah teruji oleh waktu.
+          </p>
+        </div>
+
+        <div class="menu-grid">
+          <!-- Card 1 -->
+          <div class="menu-card reveal" style="transition-delay: 0.1s">
+            <div class="menu-card-img">
+              <img src="Assets/bakpiakeju.png" alt="Bakpia Keju" id="menu-1-img" />
+              <span class="card-tag">🧀 Best Seller</span>
+            </div>
+            <div class="menu-card-body">
+              <h3 id="menu-1-name">Bakpia Keju</h3>
+              <p id="menu-1-desc">
+                Perpaduan sempurna keju premium dengan kulit tipis yang renyah.
+                Sensasi gurih yang memanjakan lidah.
+              </p>
+              <div class="menu-card-footer">
+                <span class="shelf-life">📅 Tahan 12 hari</span>
+                <a href="#" class="detail-link">Detail →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="menu-card reveal" style="transition-delay: 0.2s">
+            <div class="menu-card-img">
+              <img src="Assets/bakpiagreentea.png" alt="Bakpia Green Tea" id="menu-2-img" />
+              <span class="card-tag">🍵 Populer</span>
+            </div>
+            <div class="menu-card-body">
+              <h3 id="menu-2-name">Bakpia Green Tea</h3>
+              <p id="menu-2-desc">
+                Aroma matcha Jepang berpadu dengan kelembutan bakpia khas Jogja.
+                Harmoni rasa yang unik.
+              </p>
+              <div class="menu-card-footer">
+                <span class="shelf-life">📅 Tahan 11 hari</span>
+                <a href="#" class="detail-link">Detail →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="menu-card reveal" style="transition-delay: 0.3s">
+            <div class="menu-card-img">
+              <img
+                src="Assets/bakpiakumbuhitam.png"
+                alt="Bakpia Kumbu Hitam"
+                id="menu-3-img"
+              />
+              <span class="card-tag">🖤 Klasik</span>
+            </div>
+            <div class="menu-card-body">
+              <h3 id="menu-3-name">Bakpia Kumbu Hitam</h3>
+              <p id="menu-3-desc">
+                Rasa tradisional yang tak lekang oleh waktu. Isian kumbu hitam
+                yang legit dan autentik.
+              </p>
+              <div class="menu-card-footer">
+                <span class="shelf-life">📅 Tahan 11 hari</span>
+                <a href="#" class="detail-link">Detail →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-cta reveal">
+          <a href="#" class="btn btn-secondary">Lihat Semua Varian →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ORDER / CARA PEMESANAN ================= -->
+    <section class="order" id="pemesanan">
+      <div class="container">
+        <div class="order-header reveal">
+          <span class="section-label">Cara Pesan</span>
+          <h2 class="section-title">
+            Tiga Langkah <span>Mudah</span>
+          </h2>
+        </div>
+
+        <div class="order-steps">
+          <div class="step-card reveal" style="transition-delay: 0.1s">
+            <div class="step-number">1</div>
+            <h4>Pilih Rasa &amp; Jumlah</h4>
+            <p>
+              Tersedia dalam kotak 10, 20, atau 40 pcs. Bisa mix rasa sesuai
+              selera kamu.
+            </p>
+          </div>
+
+          <div class="step-card reveal" style="transition-delay: 0.25s">
+            <div class="step-number">2</div>
+            <h4>Konfirmasi via WhatsApp</h4>
+            <p>
+              Tim kami memproses pesananmu dan memastikan ketersediaan stok hari
+              itu juga.
+            </p>
+          </div>
+
+          <div class="step-card reveal" style="transition-delay: 0.4s">
+            <div class="step-number">3</div>
+            <h4>Dikirim Fresh</h4>
+            <p>
+              Dikemas vakum dan dikirim via ekspedisi terpercaya langsung ke
+              pintu rumahmu.
+            </p>
+          </div>
+        </div>
+
+        <div class="order-cta reveal">
+          <a href="#" class="btn btn-primary">Pesan Sekarang via WhatsApp →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TESTIMONIAL ================= -->
+    <section class="testimonial" id="testimoni">
+      <div class="container">
+        <div class="testimonial-header reveal">
+          <span class="section-label">Testimoni</span>
+          <h2 class="section-title">
+            Apa Kata <span>Mereka?</span>
+          </h2>
+        </div>
+
+        <div class="testimonial-grid">
+          <!-- Testimoni 1 -->
+          <div class="testimonial-card reveal" style="transition-delay: 0.1s">
+            <div class="testimonial-stars">★★★★★</div>
+            <blockquote>
+              "Bakpianya enak banget. Harga sangat terjangkau. Dibandingkan
+              bakpia branded, harga jauh lebih murah tapi rasa tidak kalah
+              sedap!"
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar">E</div>
+              <div>
+                <div class="author-name">Edno Sugondo</div>
+                <div class="author-role">Pelanggan Setia</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimoni 2 -->
+          <div class="testimonial-card reveal" style="transition-delay: 0.2s">
+            <div class="testimonial-stars">★★★★★</div>
+            <blockquote>
+              "Bakpianya enak, kulit tipisnya pas banget. Tersedia banyak varian
+              rasa juga. Selalu jadi oleh-oleh favorit keluarga saya!"
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar">K</div>
+              <div>
+                <div class="author-name">Khasna Sholihahku</div>
+                <div class="author-role">Pecinta Kuliner</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimoni 3 -->
+          <div class="testimonial-card reveal" style="transition-delay: 0.3s">
+            <div class="testimonial-stars">★★★★★</div>
+            <blockquote>
+              "One of my favorite local dessert that I'm so into it. The texture
+              and taste are simply perfect. Highly recommended!"
+            </blockquote>
+            <div class="testimonial-author">
+              <div class="author-avatar">A</div>
+              <div>
+                <div class="author-name">Andi Pratama</div>
+                <div class="author-role">Food Reviewer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h2>Bakpia <em>Sorsawo</em></h2>
+            <p>
+              Bakpia basah asli Yogyakarta dengan kulit tipis berlapis dan isian
+              melimpah. Dipanggang fresh setiap hari.
+            </p>
+            <div class="footer-socials">
+              <a href="#" aria-label="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="#" aria-label="Facebook">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+              <a href="#" aria-label="WhatsApp">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              </a>
+              <a href="#" aria-label="TikTok">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h4>Menu</h4>
+            <ul>
+              <li><a href="#">Varian Rasa</a></li>
+              <li><a href="#">Harga Kemasan</a></li>
+              <li><a href="#">Grosir</a></li>
+              <li><a href="#">Souvenir</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Informasi</h4>
+            <ul>
+              <li><a href="#tentang">Tentang Kami</a></li>
+              <li><a href="#">Pengiriman</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#testimoni">Ulasan</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Kontak</h4>
+            <ul>
+              <li>Jl. Bhayangkara No. 646</li>
+              <li>Pathuk, Yogyakarta</li>
+              <li>08.00 — 18.00 WIB</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 Bakpia Sorsawo. Semua hak dilindungi.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Kembali ke atas">↑</button>
+
+    <!-- ================= JAVASCRIPT ================= -->
+    <script>
+      (function () {
+        "use strict";
+
+        // ── Elements ──
+        const navbar    = document.getElementById("navbar");
+        const backToTop = document.getElementById("backToTop");
+        const hamburger = document.getElementById("hamburger");
+        const navLinks  = document.getElementById("navLinks");
+        const navOverlay = document.getElementById("navOverlay");
+        const navMenuLinks = document.querySelectorAll(".nav-menu a");
+
+        // ── Scroll Handler ──
+        function onScroll() {
+          const y = window.scrollY;
+
+          // Glassmorphism navbar
+          navbar.classList.toggle("scrolled", y > 50);
+
+          // Back to top visibility
+          backToTop.classList.toggle("visible", y > 400);
+
+          // Active nav link highlight
+          document.querySelectorAll("section[id]").forEach(function (section) {
+            var top    = section.offsetTop - 120;
+            var bottom = top + section.offsetHeight;
+            var id     = section.getAttribute("id");
+            var link   = document.querySelector('.nav-menu a[href="#' + id + '"]');
+
+            if (link) {
+              if (y >= top && y < bottom) {
+                navMenuLinks.forEach(function (a) { a.classList.remove("active"); });
+                link.classList.add("active");
+              }
+            }
+          });
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll(); // Initial call
+
+        // ── Back to top ──
+        backToTop.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        // ── Mobile menu toggle ──
+        function toggleMenu() {
+          var isOpen = navLinks.classList.toggle("open");
+          hamburger.classList.toggle("open");
+          navOverlay.classList.toggle("show");
+          document.body.style.overflow = isOpen ? "hidden" : "";
+        }
+
+        hamburger.addEventListener("click", toggleMenu);
+        navOverlay.addEventListener("click", toggleMenu);
+
+        navMenuLinks.forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (navLinks.classList.contains("open")) toggleMenu();
+          });
+        });
+
+        // ── Scroll Reveal (IntersectionObserver) ──
+        var reveals = document.querySelectorAll(".reveal, .reveal-left, .reveal-right");
+
+        if ("IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("active");
+                }
+              });
+            },
+            { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+          );
+
+          reveals.forEach(function (el) { observer.observe(el); });
+        } else {
+          // Fallback: show all
+          reveals.forEach(function (el) { el.classList.add("active"); });
+        }
+
+        // ── Parallax float cards on mouse ──
+        var floatCards = document.querySelectorAll(".hero-float-card");
+
+        if (floatCards.length && window.matchMedia("(hover: hover)").matches) {
+          window.addEventListener("mousemove", function (e) {
+            var mx = (e.clientX - window.innerWidth / 2) * 0.012;
+            var my = (e.clientY - window.innerHeight / 2) * 0.012;
+
+            floatCards.forEach(function (card) {
+              card.style.transform = "translate(" + mx + "px, " + my + "px)";
+            });
+          }, { passive: true });
+        }
+
+        // ── CMS Lokal (localStorage sync) ──
+        const editableFields = [
+          'hero-title-1', 'hero-title-accent', 'hero-title-2', 'hero-desc',
+          'about-desc-1', 'about-desc-2',
+          'menu-1-name', 'menu-1-desc',
+          'menu-2-name', 'menu-2-desc',
+          'menu-3-name', 'menu-3-desc'
+        ];
+        editableFields.forEach(function(field) {
+          var stored = localStorage.getItem('bakpia_' + field);
+          if (stored !== null) {
+            var el = document.getElementById(field);
+            if (el) el.innerHTML = stored.replace(/\n/g, '<br>');
+          }
+        });
+        
+        const editableImages = [
+          'hero-img', 'about-img-1', 'about-img-2',
+          'menu-1-img', 'menu-2-img', 'menu-3-img'
+        ];
+        editableImages.forEach(function(field) {
+          var stored = localStorage.getItem('bakpia_' + field);
+          if (stored !== null) {
+            var el = document.getElementById(field);
+            if (el) el.src = stored;
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
