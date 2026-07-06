@@ -1,26 +1,45 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard — Bakpia Sorsawo</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    /* ==============================
+       DESIGN TOKENS
+       ============================== */
     :root {
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --border: #e2e8f0;
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --primary: #c8903e; 
-      --primary-hover: #b48238;
+      --bg: #0f1117;
+      --bg-secondary: #1a1d27;
+      --surface: #21242f;
+      --surface-hover: #2a2e3b;
+      --border: #2e3241;
+      --border-light: #3a3f50;
+      --text: #e8eaed;
+      --text-muted: #8b8fa3;
+      --text-dim: #5a5f73;
+      --primary: #c8903e;
+      --primary-hover: #d9a04e;
+      --primary-glow: rgba(200, 144, 62, 0.15);
+      --primary-soft: rgba(200, 144, 62, 0.08);
       --success: #10b981;
+      --success-soft: rgba(16, 185, 129, 0.1);
+      --danger: #ef4444;
+      --danger-soft: rgba(239, 68, 68, 0.1);
+      --sidebar-width: 260px;
+      --header-height: 64px;
+      --radius: 0.5rem;
+      --radius-lg: 0.75rem;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -31,88 +50,567 @@
       font-family: 'Inter', sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    .header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
+    /* ==============================
+       LOGIN PAGE
+       ============================== */
+    .login-page {
+      min-height: 100vh;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      justify-content: center;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
     }
 
-    .header h1 {
-      font-size: 1.25rem;
-      font-weight: 600;
+    .login-page::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
     }
 
-    .header .actions {
+    .login-page::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+      bottom: -80px;
+      left: -80px;
+      pointer-events: none;
+    }
+
+    .login-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-brand {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .login-brand .brand-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary) 0%, #e0a854 100%);
+      border-radius: var(--radius-lg);
       display: flex;
-      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto 1rem;
+      box-shadow: 0 4px 16px rgba(200, 144, 62, 0.3);
+    }
+
+    .login-brand h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .login-brand h1 em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .login-brand p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .login-form .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .login-form .form-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .login-form .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.875rem;
+      transition: var(--transition);
+    }
+
+    .login-form .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .login-form .form-control::placeholder {
+      color: var(--text-dim);
+    }
+
+    .login-error {
+      background: var(--danger-soft);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      font-size: 0.8125rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .login-error.show {
+      display: block;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-6px);
+      }
+
+      75% {
+        transform: translateX(6px);
+      }
     }
 
     .btn {
-      padding: 0.5rem 1rem;
-      border-radius: 0.375rem;
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius);
       font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
       border: 1px solid transparent;
-      transition: all 0.2s;
+      transition: var(--transition);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 0.5rem;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, #d9a04e 100%);
+      color: white;
+      border: none;
+      box-shadow: 0 2px 8px rgba(200, 144, 62, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--primary-hover) 0%, #e0aa58 100%);
+      box-shadow: 0 4px 16px rgba(200, 144, 62, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 0.875rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
     }
 
     .btn-outline {
       background: transparent;
       border-color: var(--border);
-      color: var(--text);
+      color: var(--text-muted);
     }
 
     .btn-outline:hover {
-      background: #f1f5f9;
+      background: var(--surface-hover);
+      border-color: var(--border-light);
+      color: var(--text);
     }
 
-    .btn-primary {
-      background: var(--primary);
-      color: white;
+    .btn-danger-outline {
+      background: transparent;
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #f87171;
     }
 
-    .btn-primary:hover {
-      background: var(--primary-hover);
+    .btn-danger-outline:hover {
+      background: var(--danger-soft);
+      border-color: rgba(239, 68, 68, 0.5);
     }
 
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+    /* ==============================
+       ADMIN LAYOUT
+       ============================== */
+    .admin-layout {
+      display: none;
+      min-height: 100vh;
     }
 
-    .section {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    .admin-layout.active {
+      display: flex;
     }
 
-    .section-header {
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.75rem;
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 20;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-brand {
+      padding: 1.25rem 1.5rem;
       border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .section-title {
+    .sidebar-brand .brand-dot {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--primary) 0%, #e0a854 100%);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .sidebar-brand h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .sidebar-brand h2 em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .sidebar-brand small {
+      font-size: 0.6875rem;
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 1rem 0.75rem;
+      overflow-y: auto;
+    }
+
+    .nav-section-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.5rem 0.75rem 0.375rem;
+      margin-top: 0.5rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.625rem 0.75rem;
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.875rem;
+      font-weight: 450;
+      border: 1px solid transparent;
+      margin-bottom: 2px;
+      user-select: none;
+    }
+
+    .nav-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-color: rgba(200, 144, 62, 0.12);
+      font-weight: 500;
+    }
+
+    .nav-item .nav-icon {
+      font-size: 1.125rem;
+      width: 24px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .sidebar-footer {
+      padding: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.5rem 0.625rem;
+      border-radius: var(--radius);
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-user .user-avatar {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .sidebar-user .user-info {
+      overflow: hidden;
+    }
+
+    .sidebar-user .user-name {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-user .user-role {
+      font-size: 0.6875rem;
+      color: var(--text-dim);
+    }
+
+    .btn-logout {
+      width: 100%;
+      padding: 0.5rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.8125rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-logout:hover {
+      background: var(--danger-soft);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #f87171;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      min-height: 100vh;
+    }
+
+    .main-header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .main-header h1 {
       font-size: 1.125rem;
       font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 0.625rem;
+    }
+
+    .main-body {
+      padding: 2rem;
+      max-width: 960px;
+    }
+
+    /* ── CMS SECTIONS ── */
+    .cms-section {
+      display: none;
+    }
+
+    .cms-section.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Dashboard Overview */
+    .dashboard-welcome {
+      background: linear-gradient(135deg, rgba(200, 144, 62, 0.08) 0%, rgba(99, 102, 241, 0.05) 100%);
+      border: 1px solid rgba(200, 144, 62, 0.12);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .dashboard-welcome h2 {
+      font-size: 1.375rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .dashboard-welcome p {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+    }
+
+    .dashboard-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .dash-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .dash-card:hover {
+      border-color: var(--primary);
+      background: var(--surface-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .dash-card .card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .dash-card .card-title {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .dash-card .card-desc {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    /* ── FORM STYLES ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-header h3 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .card-body {
+      padding: 1.5rem;
     }
 
     .form-grid {
@@ -125,28 +623,39 @@
       margin-bottom: 1.25rem;
     }
 
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
     .form-label {
       display: block;
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       font-weight: 500;
       margin-bottom: 0.5rem;
-      color: var(--text);
+      color: var(--text-muted);
+      letter-spacing: 0.01em;
     }
 
     .form-control {
       width: 100%;
-      padding: 0.625rem;
+      padding: 0.625rem 0.875rem;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 0.375rem;
+      border-radius: var(--radius);
+      color: var(--text);
       font-family: inherit;
       font-size: 0.875rem;
-      transition: border-color 0.2s;
+      transition: var(--transition);
     }
 
     .form-control:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(200, 144, 62, 0.1);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+
+    .form-control::placeholder {
+      color: var(--text-dim);
     }
 
     textarea.form-control {
@@ -156,34 +665,35 @@
 
     .help-text {
       font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
+      color: var(--text-dim);
+      margin-top: 0.375rem;
     }
 
-    /* Image Preview */
+    /* Image Upload */
     .img-upload-wrapper {
       border: 2px dashed var(--border);
-      border-radius: 0.5rem;
+      border-radius: var(--radius-lg);
       padding: 1rem;
       text-align: center;
       position: relative;
-      background: #f8fafc;
-      transition: all 0.2s;
+      background: var(--bg);
+      transition: var(--transition);
+      cursor: pointer;
     }
 
     .img-upload-wrapper:hover {
       border-color: var(--primary);
-      background: #f1f5f9;
+      background: var(--primary-soft);
     }
 
     .img-preview {
       width: 100%;
       height: 160px;
       object-fit: cover;
-      border-radius: 0.25rem;
+      border-radius: var(--radius);
       margin-bottom: 0.75rem;
       display: block;
-      background: #e2e8f0;
+      background: var(--bg-secondary);
     }
 
     .img-preview.empty {
@@ -201,203 +711,607 @@
     }
 
     .upload-btn {
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
       color: var(--primary);
       font-weight: 500;
       pointer-events: none;
     }
 
+    /* ── TOAST ── */
     .toast {
       position: fixed;
       bottom: 2rem;
       right: 2rem;
-      background: var(--success);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.375rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: var(--radius-lg);
       font-weight: 500;
       font-size: 0.875rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow);
       transform: translateY(100px);
       opacity: 0;
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .toast.toast-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .toast.toast-error {
+      background: var(--danger);
+      color: white;
     }
 
     .toast.show {
       transform: translateY(0);
       opacity: 1;
     }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .main-body {
+        padding: 1.25rem;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-toggle {
+        display: flex !important;
+      }
+
+      .mobile-overlay {
+        display: block !important;
+      }
+    }
+
+    .mobile-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      color: var(--text);
+      font-size: 1.25rem;
+    }
+
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 15;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .mobile-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── LOADING SPINNER ── */
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <div class="header">
-    <h1>Panel Admin (CMS Lokal)</h1>
-    <div class="actions">
-      <button class="btn btn-outline" id="btnReset">Reset ke Default</button>
-      <a href="index.html" class="btn btn-outline" target="_blank">Lihat Website</a>
-      <button class="btn btn-primary" id="btnSave">Simpan Perubahan</button>
+  <!-- ================== LOGIN PAGE ================== -->
+  <div class="login-page" id="loginPage">
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="brand-icon">🍞</div>
+        <h1>Bakpia <em>Sorsawo</em></h1>
+        <p>Masuk ke panel admin</p>
+      </div>
+
+      <div class="login-error" id="loginError"></div>
+
+      <form class="login-form" id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="loginUsername">Username</label>
+          <input type="text" class="form-control" id="loginUsername" placeholder="Masukkan username" required
+            autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" required
+            autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-login" id="btnLogin">
+          Masuk
+        </button>
+      </form>
     </div>
   </div>
 
-  <div class="container">
-    
-    <!-- HERO SECTION -->
-    <div class="section">
-      <div class="section-header">
-        <h2 class="section-title">Hero Section</h2>
-      </div>
-      
-      <div class="form-grid">
+  <!-- ================== ADMIN LAYOUT ================== -->
+  <div class="admin-layout" id="adminLayout">
+
+    <!-- Mobile overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-dot">🍞</div>
         <div>
-          <div class="form-group">
-            <label class="form-label">Judul Utama (Baris 1)</label>
-            <input type="text" class="form-control" id="hero-title-1" value="Satu Gigitan,">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Judul Utama (Kata Aksen/Warna Emas)</label>
-            <input type="text" class="form-control" id="hero-title-accent" value="Sejuta">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Judul Utama (Baris 3)</label>
-            <input type="text" class="form-control" id="hero-title-2" value="Kenangan.">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Deskripsi Singkat</label>
-            <textarea class="form-control" id="hero-desc">Rasakan lembutnya kulit bakpia berpadu dengan isian premium yang lumer di mulut. Dipanggang fresh setiap hari, Bakpia Sorsawo adalah cita rasa autentik Yogyakarta yang menemanimu bernostalgia.</textarea>
+          <h2>Bakpia <em>Sorsawo</em></h2>
+          <small>Content Management</small>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Menu</div>
+        <div class="nav-item active" data-section="dashboard">
+          <span class="nav-icon">📊</span> Dashboard
+        </div>
+        <div class="nav-item" data-section="hero">
+          <span class="nav-icon">🎯</span> Hero Section
+        </div>
+        <div class="nav-item" data-section="about">
+          <span class="nav-icon">📖</span> Tentang Kami
+        </div>
+        <div class="nav-item" data-section="menu">
+          <span class="nav-icon">🍰</span> Menu Produk
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <div class="user-info">
+            <div class="user-name" id="userName">Admin</div>
+            <div class="user-role">Administrator</div>
           </div>
         </div>
+        <button class="btn-logout" id="btnLogout">
+          <span>🚪</span> Keluar
+        </button>
+      </div>
+    </aside>
 
-        <div>
-          <div class="form-group">
-            <label class="form-label">Gambar Hero</label>
-            <div class="img-upload-wrapper">
-              <img src="Assets/herosection.png" id="preview-hero-img" class="img-preview" alt="Preview">
-              <input type="file" class="file-input" id="hero-img" accept="image/*">
-              <span class="upload-btn">Ganti Gambar...</span>
+    <!-- ── MAIN CONTENT ── -->
+    <div class="main-content">
+
+      <!-- Header -->
+      <div class="main-header">
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <button class="mobile-toggle" id="mobileToggle">☰</button>
+          <h1 id="pageTitle">Dashboard</h1>
+        </div>
+        <div class="header-actions">
+          <a href="index.html" class="btn btn-outline" target="_blank">👁️ Lihat Website</a>
+          <button class="btn btn-primary" id="btnSave">💾 Simpan</button>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="main-body">
+
+        <!-- ═══ DASHBOARD ═══ -->
+        <div class="cms-section active" id="sec-dashboard">
+          <div class="dashboard-welcome">
+            <h2>Selamat Datang, Admin! 👋</h2>
+            <p>Kelola konten website Bakpia Sorsawo dari sini. Pilih section yang ingin diedit melalui sidebar atau klik kartu di bawah.</p>
+          </div>
+
+          <div class="dashboard-cards">
+            <div class="dash-card" data-goto="hero">
+              <div class="card-icon">🎯</div>
+              <div class="card-title">Hero Section</div>
+              <div class="card-desc">Edit judul, deskripsi, dan gambar utama</div>
+            </div>
+            <div class="dash-card" data-goto="about">
+              <div class="card-icon">📖</div>
+              <div class="card-title">Tentang Kami</div>
+              <div class="card-desc">Edit paragraf dan gambar profil bisnis</div>
+            </div>
+            <div class="dash-card" data-goto="menu">
+              <div class="card-icon">🍰</div>
+              <div class="card-title">Menu Produk</div>
+              <div class="card-desc">Edit nama, deskripsi, dan foto produk</div>
             </div>
           </div>
         </div>
+
+        <!-- ═══ HERO SECTION ═══ -->
+        <div class="cms-section" id="sec-hero">
+          <div class="card">
+            <div class="card-header">
+              <h3>🎯 Hero Section</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Judul Utama (Baris 1)</label>
+                    <input type="text" class="form-control" id="hero-title-1" value="Satu Gigitan,">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Judul Utama (Kata Aksen Emas)</label>
+                    <input type="text" class="form-control" id="hero-title-accent" value="Sejuta">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Judul Utama (Baris 3)</label>
+                    <input type="text" class="form-control" id="hero-title-2" value="Kenangan.">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Deskripsi Singkat</label>
+                    <textarea class="form-control"
+                      id="hero-desc">Rasakan lembutnya kulit bakpia berpadu dengan isian premium yang lumer di mulut. Dipanggang fresh setiap hari, Bakpia Sorsawo adalah cita rasa autentik Yogyakarta yang menemanimu bernostalgia.</textarea>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Gambar Hero</label>
+                    <div class="img-upload-wrapper">
+                      <img src="Assets/herosection.png" id="preview-hero-img" class="img-preview" alt="Preview">
+                      <input type="file" class="file-input" id="hero-img" accept="image/*">
+                      <span class="upload-btn">📷 Ganti Gambar...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ TENTANG KAMI ═══ -->
+        <div class="cms-section" id="sec-about">
+          <div class="card">
+            <div class="card-header">
+              <h3>📖 Tentang Kami</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Paragraf 1</label>
+                    <textarea class="form-control"
+                      id="about-desc-1">Kamu masih ingat betul. Pagi itu di Jogja, udara sejuk, secangkir teh hangat di tangan, dan sepotak bakpia yang baru keluar dari oven.</textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Paragraf 2</label>
+                    <textarea class="form-control"
+                      id="about-desc-2">Kulitnya tipis, isiannya lumer, dan rasanya berbeda dari bakpia manapun yang pernah kamu coba. Dapur kami di Pathuk — jantung sentra bakpia Yogyakarta — tidak pernah mengubah satu pun resep warisan kami.</textarea>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Gambar Tentang Kami 1 (Atas)</label>
+                    <div class="img-upload-wrapper">
+                      <img src="Assets/about1pict.png" id="preview-about-img-1" class="img-preview" alt="Preview">
+                      <input type="file" class="file-input" id="about-img-1" accept="image/*">
+                      <span class="upload-btn">📷 Ganti Gambar...</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Gambar Tentang Kami 2 (Bawah)</label>
+                    <div class="img-upload-wrapper">
+                      <img src="Assets/about2pict.png" id="preview-about-img-2" class="img-preview" alt="Preview">
+                      <input type="file" class="file-input" id="about-img-2" accept="image/*">
+                      <span class="upload-btn">📷 Ganti Gambar...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ MENU PRODUK ═══ -->
+        <div class="cms-section" id="sec-menu">
+
+          <!-- Menu 1 -->
+          <div class="card">
+            <div class="card-header">
+              <h3>🧀 Menu 1 — Bakpia Keju</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Nama Menu</label>
+                    <input type="text" class="form-control" id="menu-1-name" value="Bakpia Keju">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Deskripsi</label>
+                    <textarea class="form-control" id="menu-1-desc"
+                      style="min-height:80px">Perpaduan sempurna keju premium dengan kulit tipis yang renyah. Sensasi gurih yang memanjakan lidah.</textarea>
+                  </div>
+                </div>
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Gambar</label>
+                    <div class="img-upload-wrapper">
+                      <img src="Assets/bakpiakeju.png" id="preview-menu-1-img" class="img-preview" alt="Preview">
+                      <input type="file" class="file-input" id="menu-1-img" accept="image/*">
+                      <span class="upload-btn">📷 Ganti Gambar...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Menu 2 -->
+          <div class="card">
+            <div class="card-header">
+              <h3>🍵 Menu 2 — Bakpia Green Tea</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Nama Menu</label>
+                    <input type="text" class="form-control" id="menu-2-name" value="Bakpia Green Tea">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Deskripsi</label>
+                    <textarea class="form-control" id="menu-2-desc"
+                      style="min-height:80px">Aroma matcha Jepang berpadu dengan kelembutan bakpia khas Jogja. Harmoni rasa yang unik.</textarea>
+                  </div>
+                </div>
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Gambar</label>
+                    <div class="img-upload-wrapper">
+                      <img src="Assets/bakpiagreentea.png" id="preview-menu-2-img" class="img-preview" alt="Preview">
+                      <input type="file" class="file-input" id="menu-2-img" accept="image/*">
+                      <span class="upload-btn">📷 Ganti Gambar...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Menu 3 -->
+          <div class="card">
+            <div class="card-header">
+              <h3>🖤 Menu 3 — Bakpia Kumbu Hitam</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Nama Menu</label>
+                    <input type="text" class="form-control" id="menu-3-name" value="Bakpia Kumbu Hitam">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Deskripsi</label>
+                    <textarea class="form-control" id="menu-3-desc"
+                      style="min-height:80px">Rasa tradisional yang tak lekang oleh waktu. Isian kumbu hitam yang legit dan autentik.</textarea>
+                  </div>
+                </div>
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Gambar</label>
+                    <div class="img-upload-wrapper">
+                      <img src="Assets/bakpiakumbuhitam.png" id="preview-menu-3-img" class="img-preview" alt="Preview">
+                      <input type="file" class="file-input" id="menu-3-img" accept="image/*">
+                      <span class="upload-btn">📷 Ganti Gambar...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reset Data -->
+          <div style="text-align:right; margin-top:0.5rem;">
+            <button class="btn btn-danger-outline" id="btnReset">🗑️ Reset Semua Data</button>
+          </div>
+        </div>
+
       </div>
+      <!-- end main-body -->
     </div>
-
-    <!-- TENTANG KAMI SECTION -->
-    <div class="section">
-      <div class="section-header">
-        <h2 class="section-title">Tentang Kami</h2>
-      </div>
-      
-      <div class="form-grid">
-        <div>
-          <div class="form-group">
-            <label class="form-label">Paragraf 1</label>
-            <textarea class="form-control" id="about-desc-1">Kamu masih ingat betul. Pagi itu di Jogja, udara sejuk, secangkir teh hangat di tangan, dan sepotak bakpia yang baru keluar dari oven.</textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Paragraf 2</label>
-            <textarea class="form-control" id="about-desc-2">Kulitnya tipis, isiannya lumer, dan rasanya berbeda dari bakpia manapun yang pernah kamu coba. Dapur kami di Pathuk — jantung sentra bakpia Yogyakarta — tidak pernah mengubah satu pun resep warisan kami.</textarea>
-          </div>
-        </div>
-
-        <div>
-          <div class="form-group">
-            <label class="form-label">Gambar Tentang Kami 1 (Atas)</label>
-            <div class="img-upload-wrapper">
-              <img src="Assets/about1pict.png" id="preview-about-img-1" class="img-preview" alt="Preview">
-              <input type="file" class="file-input" id="about-img-1" accept="image/*">
-              <span class="upload-btn">Ganti Gambar...</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Gambar Tentang Kami 2 (Bawah)</label>
-            <div class="img-upload-wrapper">
-              <img src="Assets/about2pict.png" id="preview-about-img-2" class="img-preview" alt="Preview">
-              <input type="file" class="file-input" id="about-img-2" accept="image/*">
-              <span class="upload-btn">Ganti Gambar...</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- MENU SECTION -->
-    <div class="section">
-      <div class="section-header">
-        <h2 class="section-title">Menu Utama</h2>
-        <p class="help-text">Perubahan nama, deskripsi, dan gambar menu pada halaman utama.</p>
-      </div>
-      
-      <div class="form-grid">
-        <!-- Menu 1 -->
-        <div>
-          <div class="form-group">
-            <label class="form-label">Gambar Menu 1</label>
-            <div class="img-upload-wrapper">
-              <img src="Assets/bakpiakeju.png" id="preview-menu-1-img" class="img-preview" alt="Preview">
-              <input type="file" class="file-input" id="menu-1-img" accept="image/*">
-              <span class="upload-btn">Ganti Gambar...</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Nama Menu 1</label>
-            <input type="text" class="form-control" id="menu-1-name" value="Bakpia Keju">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Deskripsi Menu 1</label>
-            <textarea class="form-control" id="menu-1-desc" style="min-height: 80px;">Perpaduan sempurna keju premium dengan kulit tipis yang renyah. Sensasi gurih yang memanjakan lidah.</textarea>
-          </div>
-        </div>
-        
-        <!-- Menu 2 -->
-        <div>
-          <div class="form-group">
-            <label class="form-label">Gambar Menu 2</label>
-            <div class="img-upload-wrapper">
-              <img src="Assets/bakpiagreentea.png" id="preview-menu-2-img" class="img-preview" alt="Preview">
-              <input type="file" class="file-input" id="menu-2-img" accept="image/*">
-              <span class="upload-btn">Ganti Gambar...</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Nama Menu 2</label>
-            <input type="text" class="form-control" id="menu-2-name" value="Bakpia Green Tea">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Deskripsi Menu 2</label>
-            <textarea class="form-control" id="menu-2-desc" style="min-height: 80px;">Aroma matcha Jepang berpadu dengan kelembutan bakpia khas Jogja. Harmoni rasa yang unik.</textarea>
-          </div>
-        </div>
-
-        <!-- Menu 3 -->
-        <div>
-          <div class="form-group">
-            <label class="form-label">Gambar Menu 3</label>
-            <div class="img-upload-wrapper">
-              <img src="Assets/bakpiakumbuhitam.png" id="preview-menu-3-img" class="img-preview" alt="Preview">
-              <input type="file" class="file-input" id="menu-3-img" accept="image/*">
-              <span class="upload-btn">Ganti Gambar...</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Nama Menu 3</label>
-            <input type="text" class="form-control" id="menu-3-name" value="Bakpia Kumbu Hitam">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Deskripsi Menu 3</label>
-            <textarea class="form-control" id="menu-3-desc" style="min-height: 80px;">Rasa tradisional yang tak lekang oleh waktu. Isian kumbu hitam yang legit dan autentik.</textarea>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- end main-content -->
   </div>
+  <!-- end admin-layout -->
 
-  <div class="toast" id="toast">
-    Perubahan berhasil disimpan!
-  </div>
+  <!-- Toast -->
+  <div class="toast toast-success" id="toast"></div>
+
+  <!-- ================== FIREBASE SDK ================== -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+
 
   <script>
-    // Elements to sync
+    // ========================================================
+    // ── FIREBASE CONFIG ──
+    // ========================================================
+    const firebaseConfig = {
+      apiKey: "AIzaSyDhxJcIkqGrVf2ZP4R73HJ8n62Q61I84rQ",
+      authDomain: "bakpia-sorsawo.firebaseapp.com",
+      databaseURL: "https://bakpia-sorsawo-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "bakpia-sorsawo",
+      storageBucket: "bakpia-sorsawo.firebasestorage.app",
+      messagingSenderId: "839370113038",
+      appId: "1:839370113038:web:04d3d2afc18e95abdafc5f",
+      measurementId: "G-X88K9DCMS9"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.database();
+
+    // ========================================================
+    // ── KREDENSIAL ADMIN (Hardcoded) ──
+    // ========================================================
+    const ADMIN_USERNAME = 'admin';
+    const ADMIN_PASSWORD = 'admin';
+
+    // ========================================================
+    // ── DOM ELEMENTS ──
+    // ========================================================
+    const loginPage = document.getElementById('loginPage');
+    const adminLayout = document.getElementById('adminLayout');
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+    const btnLogin = document.getElementById('btnLogin');
+    const btnLogout = document.getElementById('btnLogout');
+    const btnSave = document.getElementById('btnSave');
+    const btnReset = document.getElementById('btnReset');
+    const pageTitle = document.getElementById('pageTitle');
+    const userName = document.getElementById('userName');
+    const userAvatar = document.getElementById('userAvatar');
+    const sidebar = document.getElementById('sidebar');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    // ========================================================
+    // ── AUTHENTICATION (Session-based) ──
+    // ========================================================
+    function showAdmin(username) {
+      loginPage.style.display = 'none';
+      adminLayout.classList.add('active');
+      userName.textContent = username;
+      userAvatar.textContent = username.charAt(0).toUpperCase();
+      loadDataFromFirebase();
+    }
+
+    function showLogin() {
+      loginPage.style.display = 'flex';
+      adminLayout.classList.remove('active');
+    }
+
+    // Check session on load
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+      showAdmin(sessionStorage.getItem('adminUser') || 'Admin');
+    } else {
+      showLogin();
+    }
+
+    // Login form submit
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      loginError.classList.remove('show');
+      btnLogin.innerHTML = '<span class="spinner"></span> Masuk...';
+      btnLogin.disabled = true;
+
+      // Simulate brief delay for UX
+      setTimeout(() => {
+        if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+          sessionStorage.setItem('adminLoggedIn', 'true');
+          sessionStorage.setItem('adminUser', username);
+          showAdmin(username);
+        } else {
+          loginError.textContent = 'Username atau password salah.';
+          loginError.classList.add('show');
+        }
+        btnLogin.innerHTML = 'Masuk';
+        btnLogin.disabled = false;
+      }, 600);
+    });
+
+    // Logout
+    btnLogout.addEventListener('click', () => {
+      if (confirm('Yakin ingin keluar?')) {
+        sessionStorage.removeItem('adminLoggedIn');
+        sessionStorage.removeItem('adminUser');
+        showLogin();
+      }
+    });
+
+    // ========================================================
+    // ── SIDEBAR NAVIGATION ──
+    // ========================================================
+    const sectionTitles = {
+      dashboard: 'Dashboard',
+      hero: 'Hero Section',
+      about: 'Tentang Kami',
+      menu: 'Menu Produk'
+    };
+
+    function switchSection(sectionId) {
+      // Update nav items
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.section === sectionId);
+      });
+
+      // Update sections
+      document.querySelectorAll('.cms-section').forEach(sec => {
+        sec.classList.toggle('active', sec.id === 'sec-' + sectionId);
+      });
+
+      // Update page title
+      pageTitle.textContent = sectionTitles[sectionId] || 'Dashboard';
+
+      // Close mobile sidebar
+      sidebar.classList.remove('open');
+      mobileOverlay.classList.remove('show');
+    }
+
+    // Sidebar nav clicks
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => switchSection(item.dataset.section));
+    });
+
+    // Dashboard card clicks
+    document.querySelectorAll('.dash-card[data-goto]').forEach(card => {
+      card.addEventListener('click', () => switchSection(card.dataset.goto));
+    });
+
+    // Mobile menu
+    mobileToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      mobileOverlay.classList.toggle('show');
+    });
+    mobileOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      mobileOverlay.classList.remove('show');
+    });
+
+    // ========================================================
+    // ── CMS DATA FIELDS ──
+    // ========================================================
     const textFields = [
       'hero-title-1', 'hero-title-accent', 'hero-title-2', 'hero-desc',
       'about-desc-1', 'about-desc-2',
@@ -411,51 +1325,62 @@
       'menu-1-img', 'menu-2-img', 'menu-3-img'
     ];
 
-    // Object to hold base64 string for images before saving
     let pendingImages = {};
 
-    // Load existing data from localStorage on load
-    window.addEventListener('DOMContentLoaded', () => {
-      // Load Texts
-      textFields.forEach(field => {
-        const storedVal = localStorage.getItem('bakpia_' + field);
-        if (storedVal !== null) {
-          document.getElementById(field).value = storedVal;
-        }
-      });
+    // ========================================================
+    // ── LOAD DATA FROM FIREBASE ──
+    // ========================================================
+    function loadDataFromFirebase() {
+      const dbRef = db.ref("webContent/landingPage");
+      dbRef.once('value').then((snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
 
-      // Load Images
-      imageFields.forEach(field => {
-        const storedVal = localStorage.getItem('bakpia_' + field);
-        if (storedVal !== null) {
-          const preview = document.getElementById('preview-' + field);
-          if (preview) {
-            preview.src = storedVal;
-            preview.classList.remove('empty');
-          }
-        }
-      });
-    });
+          // Load Texts
+          textFields.forEach(field => {
+            const el = document.getElementById(field);
+            if (el && data[field]) {
+              el.value = data[field];
+            }
+          });
 
-    // Handle Image file selection (Convert to Base64)
+          // Load Images
+          imageFields.forEach(field => {
+            if (data[field]) {
+              const preview = document.getElementById('preview-' + field);
+              if (preview) {
+                preview.src = data[field];
+                preview.classList.remove('empty');
+              }
+              pendingImages[field] = data[field];
+            }
+          });
+        }
+      }).catch((error) => {
+        console.error("Gagal memuat data:", error);
+        showToast('Gagal memuat data dari database.', 'error');
+      });
+    }
+
+    // ========================================================
+    // ── IMAGE UPLOAD HANDLER ──
+    // ========================================================
     imageFields.forEach(field => {
       const input = document.getElementById(field);
-      input.addEventListener('change', function(e) {
+      if (!input) return;
+      input.addEventListener('change', function (e) {
         const file = e.target.files[0];
         if (file) {
-          // Validasi ukuran (opsional) - maks 2MB
           if (file.size > 2 * 1024 * 1024) {
-            alert('Ukuran file terlalu besar! Maksimal 2MB.');
+            showToast('Ukuran file terlalu besar! Maksimal 2MB.', 'error');
             this.value = '';
             return;
           }
-
           const reader = new FileReader();
-          reader.onload = function(event) {
+          reader.onload = function (event) {
             const base64Str = event.target.result;
-            // Tampilkan preview
             document.getElementById('preview-' + field).src = base64Str;
-            // Simpan sementara di object pendingImages
+            document.getElementById('preview-' + field).classList.remove('empty');
             pendingImages[field] = base64Str;
           };
           reader.readAsDataURL(file);
@@ -463,52 +1388,67 @@
       });
     });
 
-    // Save button logic
-    document.getElementById('btnSave').addEventListener('click', () => {
-      // 1. Save Texts
+    // ========================================================
+    // ── SAVE DATA ──
+    // ========================================================
+    btnSave.addEventListener('click', () => {
+      btnSave.innerHTML = '<span class="spinner"></span> Menyimpan...';
+      btnSave.disabled = true;
+
+      const dataToSave = {};
+
+      // Texts
       textFields.forEach(field => {
-        const val = document.getElementById(field).value;
-        localStorage.setItem('bakpia_' + field, val);
+        const el = document.getElementById(field);
+        if (el) dataToSave[field] = el.value;
       });
-      
-      // 2. Save Images
+
+      // Images
       for (const [field, base64Str] of Object.entries(pendingImages)) {
-        try {
-          localStorage.setItem('bakpia_' + field, base64Str);
-        } catch (e) {
-          // Jika localStorage penuh karena base64 terlalu besar
-          console.error("Gagal menyimpan gambar:", e);
-          alert("Gagal menyimpan gambar. Ukuran file total terlalu besar untuk LocalStorage.");
-        }
+        dataToSave[field] = base64Str;
       }
-      
-      // Kosongkan pending setelah disimpan
-      pendingImages = {};
 
-      showToast('Perubahan berhasil disimpan! Silakan cek landing page.');
+      db.ref("webContent/landingPage").set(dataToSave)
+        .then(() => {
+          showToast('✅ Perubahan berhasil disimpan!', 'success');
+        })
+        .catch((error) => {
+          console.error("Gagal menyimpan:", error);
+          showToast('Gagal menyimpan data. Cek console.', 'error');
+        })
+        .finally(() => {
+          btnSave.innerHTML = '💾 Simpan';
+          btnSave.disabled = false;
+        });
     });
 
-    // Reset button logic
-    document.getElementById('btnReset').addEventListener('click', () => {
-      if(confirm('Apakah Anda yakin ingin mereset ke konten default? Semua perubahan akan hilang.')) {
-        textFields.forEach(field => {
-          localStorage.removeItem('bakpia_' + field);
+    // ========================================================
+    // ── RESET DATA ──
+    // ========================================================
+    btnReset.addEventListener('click', () => {
+      if (confirm('Apakah Anda yakin ingin menghapus SEMUA konten dari database?\n\nLanding page akan kembali ke default bawaan HTML.')) {
+        db.ref("webContent/landingPage").remove().then(() => {
+          showToast('🗑️ Data berhasil dihapus dari cloud.', 'success');
+          setTimeout(() => location.reload(), 1500);
+        }).catch((error) => {
+          console.error("Error removing data:", error);
+          showToast('Gagal menghapus data.', 'error');
         });
-        imageFields.forEach(field => {
-          localStorage.removeItem('bakpia_' + field);
-        });
-        location.reload(); 
       }
     });
 
-    function showToast(msg) {
+    // ========================================================
+    // ── TOAST NOTIFICATION ──
+    // ========================================================
+    function showToast(msg, type = 'success') {
       const toast = document.getElementById('toast');
       toast.textContent = msg;
-      toast.classList.add('show');
+      toast.className = 'toast toast-' + type + ' show';
       setTimeout(() => {
         toast.classList.remove('show');
-      }, 3000);
+      }, 3500);
     }
   </script>
 </body>
+
 </html>
