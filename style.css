@@ -5,23 +5,23 @@
 /* ─── Design Tokens ─── */
 :root {
   /* Colors */
-  --clr-cream:       #fdf6ec;
-  --clr-cream-dark:  #f5e6cc;
-  --clr-gold:        #c8903e;
-  --clr-gold-light:  #e5b76a;
-  --clr-gold-dark:   #a06c2a;
-  --clr-brown:       #5c3317;
-  --clr-brown-deep:  #3a1f0d;
-  --clr-brown-rich:  #7b3f1d;
-  --clr-text:        #2d1810;
-  --clr-text-light:  #6b5344;
+  --clr-cream:       #fefbf6;
+  --clr-cream-dark:  #f4ecd8;
+  --clr-gold:        #DD9E59;
+  --clr-gold-light:  #F0D8A1;
+  --clr-gold-dark:   #A47251;
+  --clr-brown:       #A47251;
+  --clr-brown-deep:  #4a301c;
+  --clr-brown-rich:  #845738;
+  --clr-text:        #302014;
+  --clr-text-light:  #7a6250;
   --clr-white:       #ffffff;
 
   /* Gradients */
-  --grad-gold: linear-gradient(135deg, #e5b76a 0%, #c8903e 50%, #a06c2a 100%);
-  --grad-warm: linear-gradient(135deg, #fdf6ec 0%, #f5e6cc 100%);
-  --grad-dark: linear-gradient(160deg, #3a1f0d 0%, #5c3317 60%, #7b3f1d 100%);
-  --grad-hero: linear-gradient(160deg, #fdf6ec 0%, #f5e6cc 40%, #e5d4b5 100%);
+  --grad-gold: linear-gradient(135deg, var(--clr-gold-light) 0%, var(--clr-gold) 50%, var(--clr-gold-dark) 100%);
+  --grad-warm: linear-gradient(135deg, var(--clr-cream) 0%, var(--clr-cream-dark) 100%);
+  --grad-dark: linear-gradient(160deg, var(--clr-brown-deep) 0%, var(--clr-brown) 60%, var(--clr-brown-rich) 100%);
+  --grad-hero: linear-gradient(160deg, var(--clr-cream) 0%, var(--clr-cream-dark) 45%, var(--clr-gold-light) 100%);
 
   /* Typography */
   --ff-display: "Playfair Display", Georgia, serif;
@@ -722,11 +722,12 @@ ul { list-style: none; }
 
 
 /* ============================================================
-   MENU
+   MENU — Auto-Scroll Carousel
    ============================================================ */
 .menu {
   padding: var(--space-2xl) 0;
   background: var(--clr-white);
+  overflow: hidden;
 }
 
 .menu-header {
@@ -749,19 +750,51 @@ ul { list-style: none; }
   line-height: 1.7;
 }
 
-/* Menu Grid */
+/* Carousel Wrapper */
+.menu-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+
+/* The scrolling track (holds two copies of items) */
+.menu-carousel-track {
+  display: flex;
+  gap: var(--space-md);
+  width: max-content;
+  animation: carouselScroll 30s linear infinite;
+}
+
+.menu-carousel-wrapper:hover .menu-carousel-track {
+  animation-play-state: paused;
+}
+
+@keyframes carouselScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Menu Grid — now acts as the visible container */
 .menu-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: var(--space-md);
 }
 
+/* Cards */
 .menu-card {
   background: var(--clr-cream);
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid rgba(200, 144, 62, 0.08);
   transition: var(--transition-base);
+  flex-shrink: 0;
+  width: 320px;
 }
 
 .menu-card:hover {
@@ -773,7 +806,7 @@ ul { list-style: none; }
 .menu-card-img {
   position: relative;
   overflow: hidden;
-  height: 240px;
+  height: 220px;
 }
 
 .menu-card-img img {
@@ -1109,9 +1142,10 @@ ul { list-style: none; }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: var(--space-lg);
+  grid-template-columns: 2fr 1fr 1fr 1.2fr 2.5fr;
+  gap: var(--space-md);
   padding-bottom: var(--space-lg);
+  align-items: flex-start;
 }
 
 /* Footer Brand */
@@ -1185,6 +1219,37 @@ ul { list-style: none; }
   padding-left: 4px;
 }
 
+/* Footer Map Column */
+.footer-map {
+  width: 100%;
+}
+
+.footer-map h4 {
+  font-family: var(--ff-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--clr-gold-light);
+  margin-bottom: var(--space-md);
+}
+
+.footer-map-frame {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.footer-map-frame iframe {
+  display: block;
+  width: 100%;
+  filter: brightness(0.85) contrast(1.1) saturate(0.7);
+  transition: filter 0.4s ease;
+}
+
+.footer-map-frame:hover iframe {
+  filter: brightness(1) contrast(1) saturate(1);
+}
+
 /* Footer Bottom */
 .footer-bottom {
   text-align: center;
@@ -1234,6 +1299,176 @@ ul { list-style: none; }
 .back-to-top:hover {
   transform: translateY(-4px);
   box-shadow: 0 0 50px rgba(200, 144, 62, 0.5);
+}
+
+
+/* ============================================================
+   FAQ (Accordion)
+   ============================================================ */
+.faq {
+  padding: var(--space-2xl) 0;
+  background: var(--clr-cream);
+}
+
+.faq-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto var(--space-xl);
+}
+
+.faq-header .section-label {
+  justify-content: center;
+}
+
+.faq-header .section-label::before {
+  display: none;
+}
+
+.faq-desc {
+  font-size: 16px;
+  color: var(--clr-text-light);
+  line-height: 1.7;
+}
+
+.faq-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-item {
+  background: var(--clr-white);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(200, 144, 62, 0.08);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+}
+
+.faq-item:hover {
+  border-color: rgba(200, 144, 62, 0.2);
+  box-shadow: var(--shadow-md);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 20px 24px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-family: var(--ff-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--clr-brown-deep);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.faq-icon {
+  font-size: 20px;
+  color: var(--clr-gold);
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease;
+  padding: 0 24px;
+}
+
+.faq-answer p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--clr-text-light);
+  padding-bottom: 20px;
+}
+
+/* Accordion Active State */
+.faq-item.active {
+  border-color: var(--clr-gold-light);
+  box-shadow: var(--shadow-md);
+}
+
+.faq-item.active .faq-question {
+  color: var(--clr-gold-dark);
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px;
+}
+
+
+/* ============================================================
+   CTA CLOSING
+   ============================================================ */
+.cta-closing {
+  padding: var(--space-2xl) 0;
+  background: linear-gradient(to bottom, var(--clr-cream) 0%, var(--clr-cream-dark) 50%, var(--clr-gold-light) 100%);
+  color: var(--clr-text);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-closing::before {
+  content: "";
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 144, 62, 0.15) 0%, transparent 70%);
+  top: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.cta-closing-content {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-closing-content h2 {
+  font-family: var(--ff-display);
+  font-size: clamp(32px, 5vw, 46px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--space-md);
+  color: var(--clr-brown-deep);
+}
+
+.cta-closing-content h2 span {
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-closing-content p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--clr-text-light);
+  margin-bottom: var(--space-lg);
+}
+
+.cta-closing-actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 
@@ -1363,7 +1598,6 @@ ul { list-style: none; }
   .hero-float-card { display: none; }
 
   /* Grids → 1 col */
-  .menu-grid,
   .order-steps,
   .testimonial-grid {
     grid-template-columns: 1fr;
@@ -1449,5 +1683,15 @@ ul { list-style: none; }
     display: inline-block;
     text-align: center;
     width: 100%;
+  }
+
+  .cta-closing-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cta-closing-actions .btn {
+    width: 100%;
+    justify-content: center;
   }
 }

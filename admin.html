@@ -24,10 +24,10 @@
       --text: #e8eaed;
       --text-muted: #8b8fa3;
       --text-dim: #5a5f73;
-      --primary: #c8903e;
-      --primary-hover: #d9a04e;
-      --primary-glow: rgba(200, 144, 62, 0.15);
-      --primary-soft: rgba(200, 144, 62, 0.08);
+      --primary: #DD9E59;
+      --primary-hover: #e4ab6e;
+      --primary-glow: rgba(221, 158, 89, 0.15);
+      --primary-soft: rgba(221, 158, 89, 0.08);
       --success: #10b981;
       --success-soft: rgba(16, 185, 129, 0.1);
       --danger: #ef4444;
@@ -828,6 +828,98 @@
         transform: rotate(360deg);
       }
     }
+
+    /* Custom styles for dynamic products in admin */
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .product-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .product-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .product-item:hover {
+      border-color: var(--border-light);
+      background: var(--surface-hover);
+    }
+
+    .product-item-img {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius);
+      object-fit: cover;
+      background: var(--bg-secondary);
+      flex-shrink: 0;
+    }
+
+    .product-item-info {
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .product-item-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .product-item-tag {
+      font-size: 0.75rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: var(--radius-full);
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .product-item-desc {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.25rem;
+    }
+
+    .product-item-shelf {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .product-item-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    /* Form card (hidden by default) */
+    #productFormCard {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    #productFormCard.active {
+      display: block;
+    }
   </style>
 </head>
 
@@ -1042,105 +1134,69 @@
 
         <!-- ═══ MENU PRODUK ═══ -->
         <div class="cms-section" id="sec-menu">
-
-          <!-- Menu 1 -->
-          <div class="card">
-            <div class="card-header">
-              <h3>🧀 Menu 1 — Bakpia Keju</h3>
+          <!-- View Products List -->
+          <div id="productsView">
+            <div class="products-header">
+              <h3>🍰 Kelola Menu Produk</h3>
+              <button class="btn btn-primary" id="btnAddTask">➕ Tambah Produk</button>
             </div>
-            <div class="card-body">
-              <div class="form-grid">
-                <div>
-                  <div class="form-group">
-                    <label class="form-label">Nama Menu</label>
-                    <input type="text" class="form-control" id="menu-1-name" value="Bakpia Keju">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Deskripsi</label>
-                    <textarea class="form-control" id="menu-1-desc"
-                      style="min-height:80px">Perpaduan sempurna keju premium dengan kulit tipis yang renyah. Sensasi gurih yang memanjakan lidah.</textarea>
-                  </div>
-                </div>
-                <div>
-                  <div class="form-group">
-                    <label class="form-label">Gambar</label>
-                    <div class="img-upload-wrapper">
-                      <img src="Assets/bakpiakeju.png" id="preview-menu-1-img" class="img-preview" alt="Preview">
-                      <input type="file" class="file-input" id="menu-1-img" accept="image/*">
-                      <span class="upload-btn">📷 Ganti Gambar...</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
+            <div class="product-list" id="productListContainer">
+              <!-- Rendered dynamically -->
             </div>
           </div>
 
-          <!-- Menu 2 -->
-          <div class="card">
+          <!-- Product Form Editor Card (hidden by default) -->
+          <div class="card" id="productFormCard">
             <div class="card-header">
-              <h3>🍵 Menu 2 — Bakpia Green Tea</h3>
+              <h3 id="formTitle">Form Produk</h3>
             </div>
             <div class="card-body">
-              <div class="form-grid">
-                <div>
-                  <div class="form-group">
-                    <label class="form-label">Nama Menu</label>
-                    <input type="text" class="form-control" id="menu-2-name" value="Bakpia Green Tea">
+              <form id="productForm">
+                <input type="hidden" id="prod-id" />
+                <div class="form-grid">
+                  <div>
+                    <div class="form-group">
+                      <label class="form-label" for="prod-name">Nama Produk</label>
+                      <input type="text" class="form-control" id="prod-name" placeholder="Contoh: Bakpia Cokelat"
+                        required />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="prod-tag">Tag (Status)</label>
+                      <input type="text" class="form-control" id="prod-tag"
+                        placeholder="Contoh: 🍫 Populer atau 🧀 Best Seller" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="prod-shelf">Daya Tahan (Masa Kadaluarsa)</label>
+                      <input type="text" class="form-control" id="prod-shelf" placeholder="Contoh: 📅 Tahan 10 hari" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="prod-desc">Deskripsi</label>
+                      <textarea class="form-control" id="prod-desc" style="min-height:100px"
+                        placeholder="Deskripsi rasa, sensasi, atau keunikan rasa produk..." required></textarea>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label class="form-label">Deskripsi</label>
-                    <textarea class="form-control" id="menu-2-desc"
-                      style="min-height:80px">Aroma matcha Jepang berpadu dengan kelembutan bakpia khas Jogja. Harmoni rasa yang unik.</textarea>
-                  </div>
-                </div>
-                <div>
-                  <div class="form-group">
-                    <label class="form-label">Gambar</label>
-                    <div class="img-upload-wrapper">
-                      <img src="Assets/bakpiagreentea.png" id="preview-menu-2-img" class="img-preview" alt="Preview">
-                      <input type="file" class="file-input" id="menu-2-img" accept="image/*">
-                      <span class="upload-btn">📷 Ganti Gambar...</span>
+                  <div>
+                    <div class="form-group">
+                      <label class="form-label">Gambar Produk</label>
+                      <div class="img-upload-wrapper" id="uploadWrapper">
+                        <img src="" id="preview-prod-img" class="img-preview empty" alt="Preview">
+                        <input type="file" class="file-input" id="prod-img" accept="image/*">
+                        <span class="upload-btn" id="uploadBtnText">📷 Pilih Gambar (Maksimal 2MB)</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Menu 3 -->
-          <div class="card">
-            <div class="card-header">
-              <h3>🖤 Menu 3 — Bakpia Kumbu Hitam</h3>
-            </div>
-            <div class="card-body">
-              <div class="form-grid">
-                <div>
-                  <div class="form-group">
-                    <label class="form-label">Nama Menu</label>
-                    <input type="text" class="form-control" id="menu-3-name" value="Bakpia Kumbu Hitam">
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Deskripsi</label>
-                    <textarea class="form-control" id="menu-3-desc"
-                      style="min-height:80px">Rasa tradisional yang tak lekang oleh waktu. Isian kumbu hitam yang legit dan autentik.</textarea>
-                  </div>
+                <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+                  <button type="button" class="btn btn-outline" id="btnCancelProduct">❌ Batal</button>
+                  <button type="submit" class="btn btn-primary" id="btnSaveProduct">💾 Simpan Produk</button>
                 </div>
-                <div>
-                  <div class="form-group">
-                    <label class="form-label">Gambar</label>
-                    <div class="img-upload-wrapper">
-                      <img src="Assets/bakpiakumbuhitam.png" id="preview-menu-3-img" class="img-preview" alt="Preview">
-                      <input type="file" class="file-input" id="menu-3-img" accept="image/*">
-                      <span class="upload-btn">📷 Ganti Gambar...</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
 
           <!-- Reset Data -->
-          <div style="text-align:right; margin-top:0.5rem;">
+          <div style="text-align:right; margin-top:1.5rem;">
             <button class="btn btn-danger-outline" id="btnReset">🗑️ Reset Semua Data</button>
           </div>
         </div>
@@ -1315,18 +1371,43 @@
     // ========================================================
     const textFields = [
       'hero-title-1', 'hero-title-accent', 'hero-title-2', 'hero-desc',
-      'about-desc-1', 'about-desc-2',
-      'menu-1-name', 'menu-1-desc',
-      'menu-2-name', 'menu-2-desc',
-      'menu-3-name', 'menu-3-desc'
+      'about-desc-1', 'about-desc-2'
     ];
 
     const imageFields = [
-      'hero-img', 'about-img-1', 'about-img-2',
-      'menu-1-img', 'menu-2-img', 'menu-3-img'
+      'hero-img', 'about-img-1', 'about-img-2'
     ];
 
     let pendingImages = {};
+    let products = [];
+
+    // Default Products Fallback
+    const defaultProducts = [
+      {
+        id: "prod_1",
+        tag: "🧀 Best Seller",
+        name: "Bakpia Keju",
+        desc: "Perpaduan sempurna keju premium dengan kulit tipis yang renyah. Sensasi gurih yang memanjakan lidah.",
+        shelfLife: "📅 Tahan 12 hari",
+        img: "Assets/bakpiakeju.png"
+      },
+      {
+        id: "prod_2",
+        tag: "🍵 Populer",
+        name: "Bakpia Green Tea",
+        desc: "Aroma matcha Jepang berpadu dengan kelembutan bakpia khas Jogja. Harmoni rasa yang unik.",
+        shelfLife: "📅 Tahan 11 hari",
+        img: "Assets/bakpiagreentea.png"
+      },
+      {
+        id: "prod_3",
+        tag: "🖤 Klasik",
+        name: "Bakpia Kumbu Hitam",
+        desc: "Rasa tradisional yang tak lekang oleh waktu. Isian kumbu hitam yang legit dan autentik.",
+        shelfLife: "📅 Tahan 11 hari",
+        img: "Assets/bakpiakumbuhitam.png"
+      }
+    ];
 
     // ========================================================
     // ── LOAD DATA FROM FIREBASE ──
@@ -1356,6 +1437,21 @@
               pendingImages[field] = data[field];
             }
           });
+
+          // Load dynamic products
+          if (data.products) {
+            if (Array.isArray(data.products)) {
+              products = data.products.filter(Boolean);
+            } else {
+              products = Object.values(data.products);
+            }
+          } else {
+            products = JSON.parse(JSON.stringify(defaultProducts));
+          }
+          renderProductsList();
+        } else {
+          products = JSON.parse(JSON.stringify(defaultProducts));
+          renderProductsList();
         }
       }).catch((error) => {
         console.error("Gagal memuat data:", error);
@@ -1364,7 +1460,183 @@
     }
 
     // ========================================================
-    // ── IMAGE UPLOAD HANDLER ──
+    // ── DYNAMIC PRODUCTS UI HANDLER ──
+    // ========================================================
+    const productListContainer = document.getElementById('productListContainer');
+    const productFormCard = document.getElementById('productFormCard');
+    const productsView = document.getElementById('productsView');
+    const btnAddTask = document.getElementById('btnAddTask');
+    const btnCancelProduct = document.getElementById('btnCancelProduct');
+    const productForm = document.getElementById('productForm');
+    const formTitle = document.getElementById('formTitle');
+    const prodIdInput = document.getElementById('prod-id');
+    const prodNameInput = document.getElementById('prod-name');
+    const prodTagInput = document.getElementById('prod-tag');
+    const prodShelfInput = document.getElementById('prod-shelf');
+    const prodDescInput = document.getElementById('prod-desc');
+    const prodImgInput = document.getElementById('prod-img');
+    const previewProdImg = document.getElementById('preview-prod-img');
+    const uploadBtnText = document.getElementById('uploadBtnText');
+
+    let formProductImage = '';
+    let editingIndex = -1;
+
+    function renderProductsList() {
+      productListContainer.innerHTML = '';
+      if (products.length === 0) {
+        productListContainer.innerHTML = '<div style="text-align:center; padding:2rem; color:var(--text-muted);">Belum ada produk. Silakan tambahkan produk baru.</div>';
+        return;
+      }
+
+      products.forEach((prod, index) => {
+        const item = document.createElement('div');
+        item.className = 'product-item';
+        item.innerHTML = `
+          <img src="${prod.img || 'Assets/logo bakpia.png'}" class="product-item-img" alt="${prod.name || 'Produk'}">
+          <div class="product-item-info">
+            <div class="product-item-title">
+              ${prod.name || 'Tanpa Nama'}
+              ${prod.tag ? `<span class="product-item-tag">${prod.tag}</span>` : ''}
+            </div>
+            <div class="product-item-desc">${prod.desc || 'Tidak ada deskripsi.'}</div>
+            <div class="product-item-shelf">${prod.shelfLife || ''}</div>
+          </div>
+          <div class="product-item-actions">
+            <button class="btn btn-outline" onclick="editProduct(${index})" style="padding: 0.5rem 0.75rem;">✏️ Edit</button>
+            <button class="btn btn-danger-outline" onclick="deleteProduct(${index})" style="padding: 0.5rem 0.75rem;">🗑️ Hapus</button>
+          </div>
+        `;
+        productListContainer.appendChild(item);
+      });
+    }
+
+    function openProductForm(index = -1) {
+      editingIndex = index;
+      if (index === -1) {
+        // Add new
+        formTitle.textContent = '➕ Tambah Produk Baru';
+        prodIdInput.value = 'prod_' + Date.now();
+        prodNameInput.value = '';
+        prodTagInput.value = '';
+        prodShelfInput.value = '';
+        prodDescInput.value = '';
+        formProductImage = '';
+        previewProdImg.src = '';
+        previewProdImg.classList.add('empty');
+        uploadBtnText.textContent = '📷 Pilih Gambar (Maksimal 2MB)';
+      } else {
+        // Edit existing
+        const prod = products[index];
+        formTitle.textContent = '✏️ Edit Produk';
+        prodIdInput.value = prod.id || ('prod_' + Date.now());
+        prodNameInput.value = prod.name || '';
+        prodTagInput.value = prod.tag || '';
+        prodShelfInput.value = prod.shelfLife || '';
+        prodDescInput.value = prod.desc || '';
+        formProductImage = prod.img || '';
+        if (formProductImage) {
+          previewProdImg.src = formProductImage;
+          previewProdImg.classList.remove('empty');
+          uploadBtnText.textContent = '📷 Ganti Gambar...';
+        } else {
+          previewProdImg.src = '';
+          previewProdImg.classList.add('empty');
+          uploadBtnText.textContent = '📷 Pilih Gambar (Maksimal 2MB)';
+        }
+      }
+      productFormCard.classList.add('active');
+      productsView.style.display = 'none';
+    }
+
+    function closeProductForm() {
+      productFormCard.classList.remove('active');
+      productsView.style.display = 'block';
+      prodImgInput.value = '';
+    }
+
+    btnAddTask.addEventListener('click', () => openProductForm(-1));
+    btnCancelProduct.addEventListener('click', closeProductForm);
+
+    prodImgInput.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+          showToast('Ukuran file terlalu besar! Maksimal 2MB.', 'error');
+          this.value = '';
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          formProductImage = event.target.result;
+          previewProdImg.src = formProductImage;
+          previewProdImg.classList.remove('empty');
+          uploadBtnText.textContent = '📷 Ganti Gambar...';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function saveProductsToFirebase() {
+      db.ref("webContent/landingPage/products").set(products)
+        .then(() => {
+          showToast('✅ Sinkronisasi produk berhasil!', 'success');
+        })
+        .catch((error) => {
+          console.error("Gagal sinkronisasi produk:", error);
+          showToast('Gagal menyinkronkan produk ke database.', 'error');
+        });
+    }
+
+    productForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const prodName = prodNameInput.value.trim();
+      const prodDesc = prodDescInput.value.trim();
+      const prodTag = prodTagInput.value.trim();
+      const prodShelf = prodShelfInput.value.trim();
+
+      if (!prodName || !prodDesc) {
+        showToast('Nama produk dan deskripsi wajib diisi!', 'error');
+        return;
+      }
+
+      const prodData = {
+        id: prodIdInput.value,
+        name: prodName,
+        desc: prodDesc,
+        tag: prodTag,
+        shelfLife: prodShelf,
+        img: formProductImage
+      };
+
+      if (editingIndex === -1) {
+        products.push(prodData);
+        showToast('Produk berhasil ditambahkan!', 'success');
+      } else {
+        products[editingIndex] = prodData;
+        showToast('Produk berhasil diperbarui!', 'success');
+      }
+
+      renderProductsList();
+      closeProductForm();
+      saveProductsToFirebase();
+    });
+
+    window.editProduct = function (index) {
+      openProductForm(index);
+    };
+
+    window.deleteProduct = function (index) {
+      if (confirm(`Apakah Anda yakin ingin menghapus produk "${products[index].name}"?`)) {
+        products.splice(index, 1);
+        renderProductsList();
+        showToast('Produk berhasil dihapus!', 'success');
+        saveProductsToFirebase();
+      }
+    };
+
+    // ========================================================
+    // ── IMAGE UPLOAD HANDLER (HERO & ABOUT) ──
     // ========================================================
     imageFields.forEach(field => {
       const input = document.getElementById(field);
@@ -1408,6 +1680,9 @@
       for (const [field, base64Str] of Object.entries(pendingImages)) {
         dataToSave[field] = base64Str;
       }
+
+      // Add products
+      dataToSave.products = products;
 
       db.ref("webContent/landingPage").set(dataToSave)
         .then(() => {
