@@ -1597,6 +1597,30 @@ ul { list-style: none; }
 
   .hero-float-card { display: none; }
 
+  /* Carousel Mobile Swipe */
+  .menu-carousel-wrapper {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: var(--space-md);
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+  
+  .menu-carousel-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .menu-carousel-track {
+    animation: none !important;
+    padding: 0 var(--space-sm);
+  }
+
+  .menu-card {
+    scroll-snap-align: center;
+    width: 280px;
+  }
+
   /* Grids → 1 col */
   .order-steps,
   .testimonial-grid {
