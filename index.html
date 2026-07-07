@@ -698,9 +698,35 @@
           track.appendChild(buildCard(prod));
         });
 
-        // Adjust speed: ~8s per card for smooth pacing
-        var speed = Math.max(products.length * 8, 20);
-        track.style.animationDuration = speed + "s";
+        // Custom JS Auto-Scroll that allows manual swipe
+        const wrapper = document.querySelector(".menu-carousel-wrapper");
+        if (window.carouselAnimFrame) cancelAnimationFrame(window.carouselAnimFrame);
+        
+        let isPaused = false;
+        
+        // Pause on mouse hover (Desktop)
+        wrapper.addEventListener('mouseenter', () => isPaused = true);
+        wrapper.addEventListener('mouseleave', () => isPaused = false);
+        
+        // Pause on touch (Mobile) so user can drag manually
+        wrapper.addEventListener('touchstart', () => isPaused = true, {passive: true});
+        wrapper.addEventListener('touchend', () => {
+          setTimeout(() => isPaused = false, 1500); // Resume shortly after touch ends
+        });
+
+        function autoScroll() {
+          if (!isPaused) {
+            wrapper.scrollLeft += 1; // Scroll speed
+            
+            // Seamless infinite loop: reset when halfway through
+            if (wrapper.scrollLeft >= track.scrollWidth / 2) {
+              wrapper.scrollLeft = 0;
+            }
+          }
+          window.carouselAnimFrame = requestAnimationFrame(autoScroll);
+        }
+        
+        autoScroll();
       }
 
       dbRef.once('value').then((snapshot) => {
