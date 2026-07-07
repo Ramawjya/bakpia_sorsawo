@@ -709,10 +709,14 @@
         wrapper.addEventListener('mouseleave', () => isPaused = false);
         
         // Pause on touch (Mobile) so user can drag manually
-        wrapper.addEventListener('touchstart', () => isPaused = true, {passive: true});
-        wrapper.addEventListener('touchend', () => {
-          setTimeout(() => isPaused = false, 1500); // Resume shortly after touch ends
-        });
+        const pauseScroll = () => { isPaused = true; };
+        const resumeScroll = () => { 
+          setTimeout(() => { isPaused = false; }, 1500); 
+        };
+        
+        wrapper.addEventListener('touchstart', pauseScroll, {passive: true});
+        wrapper.addEventListener('touchend', resumeScroll, {passive: true});
+        wrapper.addEventListener('touchcancel', resumeScroll, {passive: true});
 
         function autoScroll() {
           if (!isPaused) {
