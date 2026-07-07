@@ -1006,6 +1006,18 @@
         <div class="nav-item" data-section="menu">
           <span class="nav-icon">🍰</span> Menu Produk
         </div>
+        <div class="nav-item" data-section="testimoni">
+          <span class="nav-icon">⭐</span> Testimoni
+        </div>
+        <div class="nav-item" data-section="faq">
+          <span class="nav-icon">❓</span> FAQ
+        </div>
+        <div class="nav-item" data-section="cta">
+          <span class="nav-icon">📢</span> CTA Penutup
+        </div>
+        <div class="nav-item" data-section="kontak">
+          <span class="nav-icon">📞</span> Kontak & WA
+        </div>
       </nav>
 
       <div class="sidebar-footer">
@@ -1064,6 +1076,26 @@
               <div class="card-title">Menu Produk</div>
               <div class="card-desc">Edit nama, deskripsi, dan foto produk</div>
             </div>
+            <div class="dash-card" data-goto="testimoni">
+              <div class="card-icon">⭐</div>
+              <div class="card-title">Testimoni</div>
+              <div class="card-desc">Kelola ulasan pelanggan</div>
+            </div>
+            <div class="dash-card" data-goto="faq">
+              <div class="card-icon">❓</div>
+              <div class="card-title">FAQ</div>
+              <div class="card-desc">Edit pertanyaan yang sering ditanyakan</div>
+            </div>
+            <div class="dash-card" data-goto="cta">
+              <div class="card-icon">📢</div>
+              <div class="card-title">CTA Penutup</div>
+              <div class="card-desc">Edit teks ajakan pesan</div>
+            </div>
+            <div class="dash-card" data-goto="kontak">
+              <div class="card-icon">📞</div>
+              <div class="card-title">Kontak & WA</div>
+              <div class="card-desc">Atur nomor WhatsApp</div>
+            </div>
           </div>
         </div>
 
@@ -1093,6 +1125,11 @@
                     <textarea class="form-control"
                       id="hero-desc">Rasakan lembutnya kulit bakpia berpadu dengan isian premium yang lumer di mulut. Dipanggang fresh setiap hari, Bakpia Sorsawo adalah cita rasa autentik Yogyakarta yang menemanimu bernostalgia.</textarea>
                   </div>
+                  <div class="form-group">
+                    <label class="form-label">Teks Badge</label>
+                    <input type="text" class="form-control" id="hero-badge" value="Fresh dari Oven Setiap Hari">
+                    <span class="help-text">Teks kecil di atas judul hero</span>
+                  </div>
                 </div>
 
                 <div>
@@ -1103,6 +1140,45 @@
                       <input type="file" class="file-input" id="hero-img" accept="image/*">
                       <span class="upload-btn">📷 Ganti Gambar...</span>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Statistics -->
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="card-header">
+              <h3>📊 Statistik Hero</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Stat 1 — Angka</label>
+                    <input type="text" class="form-control" id="hero-stat-1-number" value="15+">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Stat 1 — Label</label>
+                    <input type="text" class="form-control" id="hero-stat-1-label" value="Varian Rasa">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Stat 2 — Angka</label>
+                    <input type="text" class="form-control" id="hero-stat-2-number" value="10K+">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Stat 2 — Label</label>
+                    <input type="text" class="form-control" id="hero-stat-2-label" value="Pelanggan">
+                  </div>
+                </div>
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Stat 3 — Angka</label>
+                    <input type="text" class="form-control" id="hero-stat-3-number" value="4.9">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Stat 3 — Label</label>
+                    <input type="text" class="form-control" id="hero-stat-3-label" value="Rating">
                   </div>
                 </div>
               </div>
@@ -1119,6 +1195,10 @@
             <div class="card-body">
               <div class="form-grid">
                 <div>
+                  <div class="form-group">
+                    <label class="form-label">Judul Section</label>
+                    <input type="text" class="form-control" id="about-title" value="Cita Rasa Autentik dari Jantung Yogyakarta">
+                  </div>
                   <div class="form-group">
                     <label class="form-label">Paragraf 1</label>
                     <textarea class="form-control"
@@ -1147,6 +1227,53 @@
                       <input type="file" class="file-input" id="about-img-2" accept="image/*">
                       <span class="upload-btn">📷 Ganti Gambar...</span>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fitur Unggulan -->
+          <div class="card" style="margin-top:1.5rem;">
+            <div class="card-header">
+              <h3>✨ Fitur Unggulan</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Fitur 1 — Emoji</label>
+                    <input type="text" class="form-control" id="about-feat-1-icon" value="🔥">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Fitur 1 — Label</label>
+                    <input type="text" class="form-control" id="about-feat-1-label" value="Fresh Setiap Hari">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Fitur 2 — Emoji</label>
+                    <input type="text" class="form-control" id="about-feat-2-icon" value="🌿">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Fitur 2 — Label</label>
+                    <input type="text" class="form-control" id="about-feat-2-label" value="Bahan Alami">
+                  </div>
+                </div>
+                <div>
+                  <div class="form-group">
+                    <label class="form-label">Fitur 3 — Emoji</label>
+                    <input type="text" class="form-control" id="about-feat-3-icon" value="📦">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Fitur 3 — Label</label>
+                    <input type="text" class="form-control" id="about-feat-3-label" value="Kemasan Vakum">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Fitur 4 — Emoji</label>
+                    <input type="text" class="form-control" id="about-feat-4-icon" value="🚚">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Fitur 4 — Label</label>
+                    <input type="text" class="form-control" id="about-feat-4-label" value="Kirim Seluruh Indonesia">
                   </div>
                 </div>
               </div>
@@ -1217,10 +1344,161 @@
             </div>
           </div>
 
-          <!-- Reset Data -->
-          <div style="text-align:right; margin-top:1.5rem;">
-            <button class="btn btn-danger-outline" id="btnReset">🗑️ Reset Semua Data</button>
           </div>
+        </div>
+
+        <!-- ═══ TESTIMONI ═══ -->
+        <div class="cms-section" id="sec-testimoni">
+          <div class="card">
+            <div class="card-header">
+              <h3>⭐ Testimoni Pelanggan</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <!-- Testimoni 1 -->
+                <div>
+                  <h4>Testimoni 1</h4>
+                  <div class="form-group">
+                    <label class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="testi-1-name" value="Edno Sugondo">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Peran / Status</label>
+                    <input type="text" class="form-control" id="testi-1-role" value="Pelanggan Setia">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Kutipan</label>
+                    <textarea class="form-control" id="testi-1-quote">"Bakpianya enak banget. Harga sangat terjangkau. Dibandingkan bakpia branded, harga jauh lebih murah tapi rasa tidak kalah sedap!"</textarea>
+                  </div>
+                </div>
+                <!-- Testimoni 2 -->
+                <div>
+                  <h4>Testimoni 2</h4>
+                  <div class="form-group">
+                    <label class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="testi-2-name" value="Khasna Sholihahku">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Peran / Status</label>
+                    <input type="text" class="form-control" id="testi-2-role" value="Pecinta Kuliner">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Kutipan</label>
+                    <textarea class="form-control" id="testi-2-quote">"Bakpianya enak, kulit tipisnya pas banget. Tersedia banyak varian rasa juga. Selalu jadi oleh-oleh favorit keluarga saya!"</textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="form-grid" style="margin-top:1.5rem">
+                <!-- Testimoni 3 -->
+                <div>
+                  <h4>Testimoni 3</h4>
+                  <div class="form-group">
+                    <label class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="testi-3-name" value="Andi Pratama">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Peran / Status</label>
+                    <input type="text" class="form-control" id="testi-3-role" value="Food Reviewer">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Kutipan</label>
+                    <textarea class="form-control" id="testi-3-quote">"One of my favorite local dessert that I'm so into it. The texture and taste are simply perfect. Highly recommended!"</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ FAQ ═══ -->
+        <div class="cms-section" id="sec-faq">
+          <div class="card">
+            <div class="card-header">
+              <h3>❓ FAQ (Pertanyaan yang Sering Diajukan)</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-grid">
+                <div>
+                  <h4>FAQ 1</h4>
+                  <div class="form-group"><label class="form-label">Pertanyaan</label><input type="text" class="form-control" id="faq-1-q" value="Berapa lama Bakpia Sorsawo tahan disimpan?"></div>
+                  <div class="form-group"><label class="form-label">Jawaban</label><textarea class="form-control" id="faq-1-a">Bakpia kami tahan hingga 5-7 hari di suhu ruang, dan bisa lebih lama jika disimpan di kulkas. Setiap kemasan sudah menggunakan sistem vakum untuk menjaga kesegaran.</textarea></div>
+                </div>
+                <div>
+                  <h4>FAQ 2</h4>
+                  <div class="form-group"><label class="form-label">Pertanyaan</label><input type="text" class="form-control" id="faq-2-q" value="Apakah bisa kirim ke luar kota/luar pulau?"></div>
+                  <div class="form-group"><label class="form-label">Jawaban</label><textarea class="form-control" id="faq-2-a">Bisa! Kami melayani pengiriman ke seluruh Indonesia menggunakan ekspedisi terpercaya. Untuk wilayah Jogja dan sekitarnya, tersedia juga opsi same-day delivery.</textarea></div>
+                </div>
+              </div>
+              <div class="form-grid" style="margin-top:1.5rem">
+                <div>
+                  <h4>FAQ 3</h4>
+                  <div class="form-group"><label class="form-label">Pertanyaan</label><input type="text" class="form-control" id="faq-3-q" value="Berapa minimal jumlah pemesanan?"></div>
+                  <div class="form-group"><label class="form-label">Jawaban</label><textarea class="form-control" id="faq-3-a">Tidak ada minimum order. Anda bisa memesan mulai dari 1 box untuk dicoba, atau dalam jumlah besar untuk oleh-oleh dan acara.</textarea></div>
+                </div>
+                <div>
+                  <h4>FAQ 4</h4>
+                  <div class="form-group"><label class="form-label">Pertanyaan</label><input type="text" class="form-control" id="faq-4-q" value="Metode pembayaran apa saja yang tersedia?"></div>
+                  <div class="form-group"><label class="form-label">Jawaban</label><textarea class="form-control" id="faq-4-a">Kami menerima transfer bank, e-wallet (OVO, GoPay, Dana), dan QRIS. Pembayaran dikonfirmasi langsung via WhatsApp.</textarea></div>
+                </div>
+              </div>
+              <div class="form-grid" style="margin-top:1.5rem">
+                <div>
+                  <h4>FAQ 5</h4>
+                  <div class="form-group"><label class="form-label">Pertanyaan</label><input type="text" class="form-control" id="faq-5-q" value="Apakah bakpia ini halal dan aman dikonsumsi?"></div>
+                  <div class="form-group"><label class="form-label">Jawaban</label><textarea class="form-control" id="faq-5-a">Ya, seluruh produk Bakpia Sorsawo menggunakan bahan-bahan alami pilihan dan diproduksi dengan standar kebersihan yang terjaga (serta dalam proses pengurusan sertifikasi halal & PIRT).</textarea></div>
+                </div>
+                <div>
+                  <h4>FAQ 6</h4>
+                  <div class="form-group"><label class="form-label">Pertanyaan</label><input type="text" class="form-control" id="faq-6-q" value="Bagaimana jika bakpia rusak/basi saat sampai?"></div>
+                  <div class="form-group"><label class="form-label">Jawaban</label><textarea class="form-control" id="faq-6-a">Tenang, kami memberikan garansi penggantian penuh jika produk diterima dalam kondisi rusak atau tidak sesuai. Cukup kirim foto bukti via WhatsApp maksimal 1x24 jam setelah barang diterima.</textarea></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ CTA PENUTUP ═══ -->
+        <div class="cms-section" id="sec-cta">
+          <div class="card">
+            <div class="card-header">
+              <h3>📢 CTA Penutup</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Judul Baris 1</label>
+                <input type="text" class="form-control" id="cta-title-1" value="Jangan Cuma Kenangan,">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Judul Baris 2 (Aksen)</label>
+                <input type="text" class="form-control" id="cta-title-2" value="Buat yang Baru Hari Ini">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Deskripsi</label>
+                <textarea class="form-control" id="cta-desc">Rasakan kelembutan bakpia asli Jogja yang dibuat dengan resep turun-temurun. Stok terbatas setiap harinya — pesan sekarang sebelum kehabisan.</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ KONTAK & WA ═══ -->
+        <div class="cms-section" id="sec-kontak">
+          <div class="card">
+            <div class="card-header">
+              <h3>📞 Kontak & WA</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Nomor WhatsApp</label>
+                <input type="text" class="form-control" id="contact-wa" value="628123456789">
+                <span class="help-text">Gunakan kode negara (misal: 628123...). Ini digunakan di tombol "Pesan via WhatsApp".</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reset Data (Globally at the bottom of main-body) -->
+        <div style="text-align:right; margin-top:2rem; padding: 1rem; border-top: 1px solid var(--border)">
+          <button class="btn btn-danger-outline" id="btnReset">🗑️ Reset Semua Data</button>
         </div>
 
       </div>
@@ -1346,7 +1624,11 @@
       dashboard: 'Dashboard',
       hero: 'Hero Section',
       about: 'Tentang Kami',
-      menu: 'Menu Produk'
+      menu: 'Menu Produk',
+      testimoni: 'Testimoni',
+      faq: 'FAQ',
+      cta: 'CTA Penutup',
+      kontak: 'Kontak & WA'
     };
 
     function switchSection(sectionId) {
@@ -1392,8 +1674,18 @@
     // ── CMS DATA FIELDS ──
     // ========================================================
     const textFields = [
-      'hero-title-1', 'hero-title-accent', 'hero-title-2', 'hero-desc',
-      'about-desc-1', 'about-desc-2'
+      'hero-title-1', 'hero-title-accent', 'hero-title-2', 'hero-desc', 'hero-badge',
+      'hero-stat-1-number', 'hero-stat-1-label', 'hero-stat-2-number', 'hero-stat-2-label', 'hero-stat-3-number', 'hero-stat-3-label',
+      'about-title', 'about-desc-1', 'about-desc-2',
+      'about-feat-1-icon', 'about-feat-1-label', 'about-feat-2-icon', 'about-feat-2-label',
+      'about-feat-3-icon', 'about-feat-3-label', 'about-feat-4-icon', 'about-feat-4-label',
+      'testi-1-name', 'testi-1-role', 'testi-1-quote',
+      'testi-2-name', 'testi-2-role', 'testi-2-quote',
+      'testi-3-name', 'testi-3-role', 'testi-3-quote',
+      'faq-1-q', 'faq-1-a', 'faq-2-q', 'faq-2-a', 'faq-3-q', 'faq-3-a',
+      'faq-4-q', 'faq-4-a', 'faq-5-q', 'faq-5-a', 'faq-6-q', 'faq-6-a',
+      'cta-title-1', 'cta-title-2', 'cta-desc',
+      'contact-wa'
     ];
 
     const imageFields = [
