@@ -15,15 +15,15 @@
        DESIGN TOKENS
        ============================== */
     :root {
-      --bg: #0f1117;
-      --bg-secondary: #1a1d27;
-      --surface: #21242f;
-      --surface-hover: #2a2e3b;
-      --border: #2e3241;
-      --border-light: #3a3f50;
-      --text: #e8eaed;
-      --text-muted: #8b8fa3;
-      --text-dim: #5a5f73;
+      --bg: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --surface: #ffffff;
+      --surface-hover: #f1f5f9;
+      --border: #e2e8f0;
+      --border-light: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-dim: #475569;
       --primary: #DD9E59;
       --primary-hover: #e4ab6e;
       --primary-glow: rgba(221, 158, 89, 0.15);
@@ -187,7 +187,7 @@
     .login-error {
       background: var(--danger-soft);
       border: 1px solid rgba(239, 68, 68, 0.2);
-      color: #fca5a5;
+      color: #dc2626;
       padding: 0.75rem 1rem;
       border-radius: var(--radius);
       font-size: 0.8125rem;
@@ -951,7 +951,7 @@
   <div class="login-page" id="loginPage">
     <div class="login-card">
       <div class="login-brand">
-        <div class="brand-icon">🍞</div>
+        <img src="Assets/logo bakpia.png" id="admin-login-logo" alt="Logo" style="width: 60px; height: 60px; object-fit: contain; margin-bottom: 0.5rem;">
         <h1>Bakpia <em>Sorsawo</em></h1>
         <p>Masuk ke panel admin</p>
       </div>
@@ -985,7 +985,7 @@
     <!-- ── SIDEBAR ── -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-brand">
-        <div class="brand-dot">🍞</div>
+        <img src="Assets/logo bakpia.png" id="admin-sidebar-logo" alt="Logo" style="width: 36px; height: 36px; object-fit: contain; flex-shrink: 0;">
         <div>
           <h2>Bakpia <em>Sorsawo</em></h2>
           <small>Content Management</small>
@@ -1101,6 +1101,24 @@
 
         <!-- ═══ HERO SECTION ═══ -->
         <div class="cms-section" id="sec-hero">
+          
+          <!-- Logo Website -->
+          <div class="card" style="margin-bottom:1.5rem;">
+            <div class="card-header">
+              <h3>🖼️ Logo Website</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Gambar Logo (Tampil di Kiri Atas Navbar)</label>
+                <div class="img-upload-wrapper" style="max-width: 250px;">
+                  <img src="Assets/logo bakpia.png" id="preview-site-logo" class="img-preview" alt="Preview" style="object-fit: contain; padding: 0.5rem; background: var(--surface);">
+                  <input type="file" class="file-input" id="site-logo" accept="image/*">
+                  <span class="upload-btn">📷 Ganti Logo...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="card">
             <div class="card-header">
               <h3>🎯 Hero Section</h3>
@@ -1713,7 +1731,7 @@
     ];
 
     const imageFields = [
-      'hero-img', 'about-img-1', 'about-img-2'
+      'site-logo', 'hero-img', 'about-img-1', 'about-img-2'
     ];
 
     let pendingImages = {};
@@ -1773,6 +1791,13 @@
                 preview.classList.remove('empty');
               }
               pendingImages[field] = data[field];
+
+              if (field === 'site-logo') {
+                const adminLoginLogo = document.getElementById('admin-login-logo');
+                const adminSidebarLogo = document.getElementById('admin-sidebar-logo');
+                if (adminLoginLogo) adminLoginLogo.src = data[field];
+                if (adminSidebarLogo) adminSidebarLogo.src = data[field];
+              }
             }
           });
 
@@ -1997,6 +2022,13 @@
             document.getElementById('preview-' + field).src = base64Str;
             document.getElementById('preview-' + field).classList.remove('empty');
             pendingImages[field] = base64Str;
+
+            if (field === 'site-logo') {
+              const adminLoginLogo = document.getElementById('admin-login-logo');
+              const adminSidebarLogo = document.getElementById('admin-sidebar-logo');
+              if (adminLoginLogo) adminLoginLogo.src = base64Str;
+              if (adminSidebarLogo) adminSidebarLogo.src = base64Str;
+            }
           };
           reader.readAsDataURL(file);
         }
